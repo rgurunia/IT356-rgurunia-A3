@@ -56,7 +56,6 @@ resource "aws_instance" "MCCA Server" {
   subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.30"       # Static private IP
   vpc_security_group_ids = [aws_security_group.mcsa_sg.id]
-  key_name               = "your-key-pair" #Add key here
 
   user_data = <<-EOF
     <powershell>
