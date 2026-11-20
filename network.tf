@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 # This module defines and creates the VPC
-module "school-vpc-01" {
+module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 #Defines name and IPv4
   name = "school-vpc-01"
