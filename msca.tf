@@ -55,7 +55,7 @@ resource "aws_instance" "MCCA Server" {
   instance_type          = "t3.medium"
   subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.30"       # Static private IP
-  vpc_security_group_ids = [aws_security_group.mcsa_sg.id] #Replace?
+  vpc_security_group_ids = [aws_security_group.mcsa_sg.id]
   key_name               = "your-key-pair"
 
   user_data = <<-EOF
