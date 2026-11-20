@@ -38,7 +38,7 @@ resource "aws_security_group" "ad_sg" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["YOUR_IP/32"] # Restrict RDP access
+    cidr_blocks = ["IP/32"] # Restrict RDP access to admin
   }
 
   egress {
@@ -53,7 +53,7 @@ resource "aws_security_group" "ad_sg" {
 resource "aws_instance" "domain_controller-1" {
   ami                    = data.aws_ami.windows_2025.id
   instance_type          = "t3.medium"
-  subnet_id              = "subnet-xxxxxxxx" # Replace with your Subnet ID
+  subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.10"       # Static private IP
   vpc_security_group_ids = [aws_security_group.ad_sg.id] #Replace?
   key_name               = "your-key-pair"
@@ -83,7 +83,7 @@ resource "aws_instance" "domain_controller-1" {
 resource "aws_instance" "domain_controller-2" {
   ami                    = data.aws_ami.windows_2025.id
   instance_type          = "t3.medium"
-  subnet_id              = "subnet-xxxxxxxx" # Replace with your Subnet ID
+  subnet_id              = "subnet-0a020415a53eb76f8" #Subnet ID
   private_ip             = "10.0.1.20"       # Static private IP 
   vpc_security_group_ids = [aws_security_group.ad_sg.id] #Replace
   key_name               = "your-key-pair"
