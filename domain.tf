@@ -1,4 +1,4 @@
-#Creates the 2 Domain Controllers
+#Creates the Windows Server
 data "aws_ami" "windows_2025" {
   most_recent = true
   owners      = ["amazon"]
