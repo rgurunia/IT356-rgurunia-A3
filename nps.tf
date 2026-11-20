@@ -73,6 +73,8 @@ resource "aws_instance" "NPS Server" {
     Name = "NPS-Server"
   }
 
-output "nps_instance_public_ip" {
-  value = aws_instance.nps_server.public_ip
+#This creates a variable for a directory_id for RADIUS configuration
+variable "directory_id" {
+  type = string
+  default = "radius_server_id"
 }
