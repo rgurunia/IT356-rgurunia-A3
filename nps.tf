@@ -67,6 +67,7 @@ resource "aws_instance" "NPS Server" {
   
 # Of note, manually configuration is still needed for the RADIUS Clients and Policies
 # Joining the AD will also need to be done manually.
+# This issue will be solved with the "radius.tf" file.
 
   tags = {
     Name = "NPS-Server"
