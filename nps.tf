@@ -52,21 +52,27 @@ resource "aws_security_group" "nps_sg" {
 #Creates NPS Server
 resource "aws_instance" "NPS Server" {
   ami                    = data.aws_ami.windows_2025.id
-  instance_type          = "t3.medium"
+  instance_type          = "c5.xlarge" #Required type for Windows Systems
   subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.40"       # Static private IP
   vpc_security_group_ids = [aws_security_group.nps_sg.id]
-  key_name               = "your-key-pair"
+  key_name               = "your-key-pair" #Add Key name here
 
   user_data = <<-EOF
     <powershell>
     # 1. Installs NPS and Management Tools
     Install-WindowsFeature -Name NPAS -IncludeManagementTools
+
+    # 2. Joins and adds the the instance to the AD
+    $domain = "://school1.aa.edu"
+    $password = ConvertTo-SecureString "${var.ad_join_password}" -AsPlainText -Force
+    $credential = New-Object System.Management.Automation.PSCredential("CORP\Admin", $password)
+    Add-Computer -DomainName $domain -Credential $credential -Restart -Force
+
      </powershell>
   EOF
   
 # Of note, manually configuration is still needed for the RADIUS Clients and Policies
-# Joining the AD will also need to be done manually.
 # This issue will be solved with the "radius.tf" file.
 
   tags = {
