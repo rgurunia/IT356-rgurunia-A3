@@ -95,6 +95,8 @@ resource "aws_instance" "domain_controller-2" {
 
     # 2. Joining the Forest
   Install-ADDSDomainController -DomainName "://school1.aa.edu" -InstallDns:$true -Credential (Get-Credential)
+    </powershell>
+  EOF
 
   tags = {
     Name = "Secondary-Domain-Controller"
