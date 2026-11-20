@@ -108,7 +108,7 @@ resource "aws_instance" "domain_controller-2" {
   ami                    = data.aws_ami.windows_2025.id
   instance_type          = "t3.medium"
   subnet_id              = "subnet-xxxxxxxx" # Replace with your Subnet ID
-  private_ip             = "10.0.1.10"       # Static private IP is recommended for DNS
+  private_ip             = "10.0.1.20"       # Static private IP is recommended for DNS
   vpc_security_group_ids = [aws_security_group.ad_sg.id] #Replace
   key_name               = "your-key-pair"
 
@@ -117,17 +117,8 @@ resource "aws_instance" "domain_controller-2" {
     # 1. Install AD DS, DNS, and Management Tools
     Install-WindowsFeature -Name AD-Domain-Services, DNS -IncludeManagementTools
 
-    # 2. Promote to Domain Controller and create a new Forest
-    $DomainName = "://school2.aa.edu "
-    $SafeModePassword = ConvertTo-SecureString "P@ssw0rd1234!" -AsPlainText -Force
-
-    Install-ADDSForest `
-      -DomainName $school2.aa.edu `
-      -SafeModeAdministratorPassword $SafeModePassword `
-      -InstallDns:$true `
-      -Force:$true
-    </powershell>
-  EOF
+    # 2. Joining the Forest
+  Install-ADDSDomainController -DomainName "://school1.aa.edu" -InstallDns:$true -Credential (Get-Credential)
 
   tags = {
     Name = "Secondary-Domain-Controller"
