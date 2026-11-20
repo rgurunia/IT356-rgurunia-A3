@@ -52,11 +52,11 @@ resource "aws_security_group" "ad_sg" {
 #First Domain Controller
 resource "aws_instance" "domain_controller-1" {
   ami                    = data.aws_ami.windows_2025.id
-  instance_type          = "t3.medium"
+  instance_type          = "c5.xlarge" #Required type for Windows Systems
   subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.10"       # Static private IP
   vpc_security_group_ids = [aws_security_group.ad_sg.id]
-  key_name               = "your-key-pair"
+  key_name               = "your-key-pair" #Add Key here
 
   user_data = <<-EOF
     <powershell>
@@ -82,11 +82,11 @@ resource "aws_instance" "domain_controller-1" {
 #2nd Domain Controller
 resource "aws_instance" "domain_controller-2" {
   ami                    = data.aws_ami.windows_2025.id
-  instance_type          = "t3.medium"
+  instance_type          = "c5.xlarge" #Required type for Windows Systems
   subnet_id              = "subnet-0a020415a53eb76f8" #Subnet ID
   private_ip             = "10.0.1.20"       # Static private IP 
   vpc_security_group_ids = [aws_security_group.ad_sg.id]
-  key_name               = "your-key-pair"
+  key_name               = "your-key-pair" #Add key here
 
   user_data = <<-EOF
     <powershell>
