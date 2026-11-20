@@ -56,7 +56,6 @@ resource "aws_instance" "domain_controller-1" {
   subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.10"       # Static private IP
   vpc_security_group_ids = [aws_security_group.ad_sg.id]
-  key_name               = "your-key-pair" #Add Key here
 
   user_data = <<-EOF
     <powershell>
@@ -86,7 +85,6 @@ resource "aws_instance" "domain_controller-2" {
   subnet_id              = "subnet-0a020415a53eb76f8" #Subnet ID
   private_ip             = "10.0.1.20"       # Static private IP 
   vpc_security_group_ids = [aws_security_group.ad_sg.id]
-  key_name               = "your-key-pair" #Add key here
 
   user_data = <<-EOF
     <powershell>
