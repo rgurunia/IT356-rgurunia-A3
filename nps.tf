@@ -56,7 +56,6 @@ resource "aws_instance" "NPS Server" {
   subnet_id              = "subnet-0a020415a53eb76f8" # Subnet ID
   private_ip             = "10.0.1.40"       # Static private IP
   vpc_security_group_ids = [aws_security_group.nps_sg.id]
-  key_name               = "your-key-pair" #Add Key name here
 
   user_data = <<-EOF
     <powershell>
